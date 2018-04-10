@@ -5,7 +5,6 @@ const passport = require('passport');
 
 /* POST login. */
 router.post('/login', function (req, res, next) {
-
   passport.authenticate('local', {session: false}, (err, user, info) => {
     console.log(err);
     if (err || !user) {
@@ -14,7 +13,6 @@ router.post('/login', function (req, res, next) {
         user   : user
       });
     }
-
     req.login(user, {session: false}, (err) => {
       if (err) {
         res.send(err);
@@ -28,7 +26,12 @@ router.post('/login', function (req, res, next) {
     });
   })
   (req, res);
-
 });
+
+router.get('/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile', 'user_likes', 'user_posts'] }));
+router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), (req, res) => {
+  res.redirect(req.session.returnTo || '/');
+});
+
 
 module.exports = router;
