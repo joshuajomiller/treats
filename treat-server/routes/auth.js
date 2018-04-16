@@ -17,21 +17,17 @@ router.post('/login', function (req, res, next) {
       if (err) {
         res.send(err);
       }
-
       const token = jwt.sign({email: user.email, password: user.password}, 'your_jwt_secret_123');
-
-      console.log(token);
-
-      res.send({user, token});
+      res.send({token});
     });
   })
   (req, res);
 });
 
-router.get('/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile', 'user_likes', 'user_posts'] }));
-router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect(req.session.returnTo || '/');
-});
+// router.get('/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile', 'user_likes', 'user_posts'] }));
+// router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), (req, res) => {
+//   res.redirect(req.session.returnTo || '/');
+// });
 
 
 module.exports = router;
