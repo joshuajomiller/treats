@@ -3,7 +3,7 @@ let path = require('path');
 let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
-const passport    = require('passport');
+const passport = require('passport');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
@@ -16,12 +16,14 @@ require('./controllers/passport');
 dotenv.load({ path: '.dev.env' });
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI);
-mongoose.connection.on('error', (err) => {
-  console.error(err);
-  console.log('MongoDB connection error. Please make sure MongoDB is running.');
-  process.exit();
-});
+mongoose.connect(process.env.MONGODB_URI).then(
+  () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
+  err => {
+    console.error(err);
+    console.log('MongoDB connection error. Please make sure MongoDB is running.');
+    process.exit();
+  }
+);
 
 let app = express();
 
