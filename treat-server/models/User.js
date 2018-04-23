@@ -6,15 +6,9 @@ const userSchema = new mongoose.Schema({
   password: String,
   passwordResetToken: String,
   passwordResetExpires: Date,
-
-  facebook: String,
-  twitter: String,
-  google: String,
-  linkedin: String,
-  tokens: Array,
-
   profile: {
     name: String,
+    organisation: String,
     location: String,
     website: String,
     picture: String

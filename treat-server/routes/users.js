@@ -3,20 +3,21 @@ let router = express.Router();
 const User = require("../models/User");
 const jwt  = require('jsonwebtoken');
 
-/* GET users listing. */
-
-
 router.route('/')
+
+  /* GET users listing. */
   .get(function (req, res) {
     res.send('Get all Users')
   })
+
+  /* POST new user. */
   .post(function (req, res) {
     let email = req.body.email;
     let password = req.body.password;
 
     User.findOne({email: email}, (err, existingUser) => {
       if (err) {
-        rres.status(400).send({error: err});
+        res.status(400).send({error: err});
       } else {
         if (existingUser) {
           res.status(400).send({msg: 'There is already an existing user registered with that email.'});
