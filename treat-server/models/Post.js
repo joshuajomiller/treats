@@ -9,20 +9,18 @@ const postSchema = new mongoose.Schema({
   title: String,
   tags: Array
 }, options);
+const Post = mongoose.model('Post', postSchema);
 
-const textPostSchema = new mongoose.Schema({
+const TextPost = Post.discriminator('TextPost', new mongoose.Schema({
   text: String
-}, options);
+}));
 
-const togglePostSchema = new mongoose.Schema({
+const TogglePost = Post.discriminator('TogglePost', new mongoose.Schema({
   textOn: String,
   textOff: String,
   state: Boolean
-}, options);
-
-
-const Post = mongoose.model('Post', postSchema);
-const TextPost = mongoose.model('TextPost', textPostSchema);
-const TogglePost = mongoose.model('TogglePost', togglePostSchema);
+}));
 
 module.exports = {Post, TextPost, TogglePost};
+
+// carry on here: http://thecodebarbarian.com/mongoose-4.8-embedded-discriminators
