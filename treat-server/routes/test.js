@@ -2,6 +2,7 @@ let express = require('express');
 let router = express.Router();
 const User = require("../models/User");
 const Board = require("../models/Board");
+const jwt      = require('jsonwebtoken');
 
 router.post('/profile', function(req, res, next) {
   res.send(req.body.token);
@@ -30,6 +31,26 @@ router.post('/board', function(req, res, next) {
 
     }
   });
+});
+
+router.get('/token/check', function (req, res, next) {
+  let token = req.body.token || req.query.token || req.get('x-access-token') || req.get('Authorization');
+  token = token.replace('Bearer ', '');
+
+  // decode token
+  if (token) {
+    // verifies secret and checks exp
+    jwt.verify(token, 'your_jwt_secret_123', function (err, decoded) {
+      if (err) {
+        res.status(401).json({success: false, message: 'Failed to authenticate token.'});
+      } else {
+        // if everything is good, save to request for use in other routes
+        res.send(decoded);
+      }
+    });
+  } else {
+    res.send('error');
+  }
 });
 
 module.exports = router;
