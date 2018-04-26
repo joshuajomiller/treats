@@ -6,6 +6,7 @@ let bodyParser = require('body-parser');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const tokenDecode = require('./middleware/tokenDecode');
 
 let index = require('./routes/index');
 let users = require('./routes/users');
@@ -32,6 +33,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(tokenDecode);
 
 app.use('/', index);
 app.use('/user', users);
