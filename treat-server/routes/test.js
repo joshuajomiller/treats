@@ -1,19 +1,29 @@
 let express = require('express');
 let router = express.Router();
 const User = require("../models/User");
-const Post = require("../models/Post");
+const Board = require("../models/Board");
 
 router.post('/profile', function(req, res, next) {
   res.send(req.body.token);
 });
 
-router.post('/post', function(req, res, next) {
+router.post('/board', function(req, res, next) {
   let text = req.body.text;
-  Post.TextPost.create({text: text}, function (err) {
+
+  const board = {
+    name: 'board' + Math.random(),
+    owner: 'me',
+    posts: [
+      { post_type: 'TextPost', text: text },
+      { post_type: 'TogglePost', textOn: 'stateOn', textOff: 'stateOff', state: true }
+    ]
+  };
+
+  Board.create(board, function (err) {
     if (err) {
       res.status(400).send(err)
     } else {
-      Post.Post.find({}, function (err, posts) {
+      Board.find({}, function (err, posts) {
         res.send(posts);
       })
 
