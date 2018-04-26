@@ -5,7 +5,7 @@ const jwt  = require('jsonwebtoken');
 
 router.route('/')
 
-  /* GET users listing. */
+/* GET users listing. */
   .get(function (req, res) {
     res.send('Get all Users')
   })

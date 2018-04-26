@@ -11,6 +11,7 @@ let index = require('./routes/index');
 let users = require('./routes/users');
 let test = require('./routes/test');
 let auth = require('./routes/auth');
+let boards = require('./routes/boards');
 require('./controllers/passport');
 
 dotenv.load({ path: '.dev.env' });
@@ -34,8 +35,9 @@ app.use(cookieParser());
 
 app.use('/', index);
 app.use('/user', users);
-app.use('/test', passport.authenticate('jwt', {session: false}), test);
 app.use('/auth', auth);
+app.use('/board', passport.authenticate('jwt', {session: false}), boards);
+app.use('/test', passport.authenticate('jwt', {session: false}), test);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
