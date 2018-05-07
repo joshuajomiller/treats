@@ -8,6 +8,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import {HttpClientModule} from '@angular/common/http';
+import {LoginService} from './login/login.service';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -17,11 +19,14 @@ import {HttpClientModule} from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
     NgbModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    LoginService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

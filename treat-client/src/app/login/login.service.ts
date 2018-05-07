@@ -6,7 +6,7 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  login(username: Text, password: Text) {
-    return this.http.post<any>('/api/login', {username: username, password: password});
+  login(email: string, password: string, remember: Boolean) {
+    return this.http.post('/api/auth/login', {email: email, password: password});
   }
 }
