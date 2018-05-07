@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { LoginComponent } from './login/login.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     NgbModule.forRoot()
   ],
   providers: [],
