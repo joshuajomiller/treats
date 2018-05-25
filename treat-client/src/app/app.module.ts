@@ -11,12 +11,14 @@ import {HttpClientModule} from '@angular/common/http';
 import {LoginService} from './login/login.service';
 import {FormsModule} from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { NewPostComponent } from './new-post/new-post.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    NewPostComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +30,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   providers: [
     LoginService
   ],
+  entryComponents: [NewPostComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
