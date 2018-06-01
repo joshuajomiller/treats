@@ -15,9 +15,12 @@ router.route('/')
   });
 
 router.route('/:id')
-/* GET  board. */
+/* GET  board */
   .get(function(req, res) {
-
+      let id = req.params.id;
+      Board.findById(id, function (err, board) {
+          res.send(board);
+      })
   })
   /* PUT change board */
   .put(function (req, res) {
