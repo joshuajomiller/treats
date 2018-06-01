@@ -1,0 +1,25 @@
+<div class="modal-header">
+  <h4 class="modal-title">Create a new board</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-sm-6">
+        <input type="text" name="board_name" title="New Board Name" placeholder="New board name" [(ngModel)]="boardName">
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="closeModal()">Close</button>
+</div>
