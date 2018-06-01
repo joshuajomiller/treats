@@ -1,10 +1,16 @@
 <div class="container mt-5">
   <div class="row">
-  <div class="col-12 col-sm-4 col-md-3">
-    <div class="card post_card post_new" (click)="openNewModal()">
-      <p><i class="fas fa-plus"></i></p>
-      <h5 class="card-title">Add a new post</h5>
+
+    <div class="col-12 center-text" (click)="openNewBoardModal()" [hidden]="!pageLoaded || boards.length">
+      No boards! Create your first
     </div>
-  </div>
+
+    <div class="col-12 col-sm-4 col-md-3" [hidden]="!pageLoaded || !boards.length">
+      <div class="card post_card post_new" (click)="openNewPostModal()">
+        <p><i class="fas fa-plus"></i></p>
+        <h5 class="card-title">Add a new post</h5>
+      </div>
+    </div>
+
   </div>
 </div>

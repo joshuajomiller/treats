@@ -14,6 +14,10 @@ export class DashboardService {
     return this.http.get<Board[]>('/api/board/');
   }
 
+  newBoard(name) {
+    return this.http.post('/api/board/', {name: name});
+  }
+
   getBoard(id: number) {
     return this.http.get<Board>('/api/board/' + id);
   }

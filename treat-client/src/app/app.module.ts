@@ -15,13 +15,15 @@ import { NewPostComponent } from './new-post/new-post.component';
 import {DashboardService} from './dashboard/dashboard.service';
 import {TokenInterceptor} from './auth/token.interceptor';
 import {AuthService} from './auth/auth.service';
+import { NewBoardComponent } from './new-board/new-board.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    NewPostComponent
+    NewPostComponent,
+    NewBoardComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,10 @@ import {AuthService} from './auth/auth.service';
     AuthService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}
   ],
-  entryComponents: [NewPostComponent],
+  entryComponents: [
+    NewPostComponent,
+    NewBoardComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

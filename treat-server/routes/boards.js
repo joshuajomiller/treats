@@ -11,7 +11,15 @@ router.route('/')
   })
   /* POST new board */
   .post(function (req, res) {
-
+      let userId = req.tokenDetails.iat;
+      let name = req.tokenDetails.name;
+      Board.create({name: name, userId: userId}, function (err, small) {
+          if (err) {
+              res.status(400).send(err)
+          } else {
+              res.send({status: 'created'});
+          }
+      });
   });
 
 router.route('/:id')
