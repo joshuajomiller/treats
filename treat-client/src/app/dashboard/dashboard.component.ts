@@ -11,7 +11,8 @@ import {NewBoardComponent} from '../new-board/new-board.component';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  public boards: Board[];
+  public boards: Board[] = [];
+  public currentBoard: Board;
   public pageLoaded = false;
 
   constructor(
@@ -19,18 +20,24 @@ export class DashboardComponent implements OnInit {
     private dashboardService: DashboardService) { }
 
   ngOnInit() {
+    this.refreshPage();
+  }
+
+  refreshPage() {
+    this.pageLoaded = false;
     this.getAllBoards()
-      .then(() => {
+      .then((boards) => {
+        this.boards = boards;
+        this.currentBoard = this.boards[0];
         this.pageLoaded = true;
       });
   }
 
-  getAllBoards() {
+  getAllBoards():Promise<Board[]> {
     return new Promise((resolve, reject) => {
       this.dashboardService.getBoards()
         .subscribe(boards => {
-          this.boards = boards;
-          resolve();
+          resolve(boards);
         });
     });
   }
@@ -41,7 +48,7 @@ export class DashboardComponent implements OnInit {
     modalRef.componentInstance.action.subscribe(boardName => {
       this.dashboardService.newBoard(boardName)
         .subscribe(response => {
-          this.getAllBoards();
+          this.refreshPage();
         });
     });
   }
@@ -49,5 +56,11 @@ export class DashboardComponent implements OnInit {
   openNewPostModal() {
     const modalRef = this.modalService.open(NewPostComponent);
     modalRef.componentInstance.name = 'NewPost';
+    modalRef.componentInstance.action.subscribe(post => {
+      this.dashboardService.newPost(this.currentBoard._id, post)
+        .subscribe(response => {
+          this.refreshPage();
+        });
+    });
   }
 }

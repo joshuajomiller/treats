@@ -12,12 +12,12 @@ router.route('/')
   /* POST new board */
   .post(function (req, res) {
       let userId = req.tokenDetails.iat;
-      let name = req.tokenDetails.name;
+      let name = req.body.name;
       Board.create({name: name, userId: userId}, function (err, small) {
           if (err) {
               res.status(400).send(err)
           } else {
-              res.send({status: 'created'});
+              res.send({status: 'board created'});
           }
       });
   });
@@ -38,6 +38,18 @@ router.route('/:id')
   /* DELETE board */
   .delete(function (req, res) {
 
+  });
+
+router.route('/:id/post')
+  .post(function(req, res) {
+      let boardId = req.params.id;
+      let post = req.body.post;
+      Board.findById(boardId, function (err, board) {
+          board.posts = board.posts.push(post);
+          board.save(function (err, updatedBoard) {
+              res.send({status: 'post created'});
+          });
+      })
   });
 
 module.exports = router;

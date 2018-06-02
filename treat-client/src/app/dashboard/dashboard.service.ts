@@ -18,6 +18,10 @@ export class DashboardService {
     return this.http.post('/api/board/', {name: name});
   }
 
+  newPost(boardId, post) {
+    return this.http.post('/api/board/' + boardId + '/post', {post: post});
+  }
+
   getBoard(id: number) {
     return this.http.get<Board>('/api/board/' + id);
   }

@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {CommonModule} from '@angular/common';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
@@ -28,6 +29,7 @@ import { NewBoardComponent } from './new-board/new-board.component';
   imports: [
     BrowserModule,
     FormsModule,
+    CommonModule,
     AppRoutingModule,
     HttpClientModule,
     NgbModule.forRoot()
