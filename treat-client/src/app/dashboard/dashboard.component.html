@@ -5,7 +5,7 @@
     </div>
 
     <div class="col-12 center-text" [hidden]="!boards.length">
-      <div class="col" *ngFor="let board of boards">{{board.name}} </div>
+      <div class="col" *ngFor="let board of boards" (click)="selectBoard(board)">{{board.name}}</div>
       <div class="col" (click)="openNewBoardModal()"> + New board</div>
     </div>
 
@@ -14,10 +14,11 @@
         <p><i class="fas fa-plus"></i></p>
         <h5 class="card-title">Add a new post</h5>
       </div>
-      <div class="card post_card" *ngFor="let post of currentBoard?.posts">
+    </div>
+    <div class="col-12 col-sm-4 col-md-3" [hidden]="!boards.length && !currentBoard?.posts" *ngFor="let post of currentBoard?.posts">
+      <div class="card post_card">
         <h5 class="card-title">{{post.title}}</h5>
       </div>
     </div>
-
   </div>
 </div>

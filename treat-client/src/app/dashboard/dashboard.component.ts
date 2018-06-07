@@ -28,18 +28,22 @@ export class DashboardComponent implements OnInit {
     this.getAllBoards()
       .then((boards) => {
         this.boards = boards;
-        this.currentBoard = this.boards[0];
+        this.selectBoard(this.boards[0]);
         this.pageLoaded = true;
       });
   }
 
-  getAllBoards():Promise<Board[]> {
+  getAllBoards(): Promise<Board[]> {
     return new Promise((resolve, reject) => {
       this.dashboardService.getBoards()
         .subscribe(boards => {
           resolve(boards);
         });
     });
+  }
+
+  selectBoard(board) {
+    this.currentBoard = board;
   }
 
   openNewBoardModal() {
