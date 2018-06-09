@@ -17,6 +17,8 @@ import {DashboardService} from './dashboard/dashboard.service';
 import {TokenInterceptor} from './auth/token.interceptor';
 import {AuthService} from './auth/auth.service';
 import { NewBoardComponent } from './new-board/new-board.component';
+import { TextPostComponent } from './posts/text-post/text-post.component';
+import { TogglePostComponent } from './posts/toggle-post/toggle-post.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { NewBoardComponent } from './new-board/new-board.component';
     LoginComponent,
     DashboardComponent,
     NewPostComponent,
-    NewBoardComponent
+    NewBoardComponent,
+    TextPostComponent,
+    TogglePostComponent
   ],
   imports: [
     BrowserModule,

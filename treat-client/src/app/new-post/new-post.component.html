@@ -12,17 +12,23 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12 col-sm-6">
+      <div class="col-12 col-sm-6" (click)="selectPostType('text')">
         <div class="card text-center">
           <p><i class="fas fa-font"></i></p>
           <h5 class="card-title">Text post</h5>
         </div>
       </div>
-      <div class="col-12 col-sm-6">
+      <div class="col-12 col-sm-6" (click)="selectPostType('toggle')">
         <div class="card text-center">
           <p><i class="fas fa-toggle-on"></i></p>
           <h5 class="card-title">Toggle post</h5>
         </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="postType">
+      <div class="col-12" >
+        <app-text-post *ngIf="postType === 'text'"></app-text-post>
+        <app-toggle-post *ngIf="postType === 'toggle'"></app-toggle-post>
       </div>
     </div>
   </div>

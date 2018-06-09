@@ -8,9 +8,16 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class NewPostComponent implements OnInit {
 
+  public postType = '';
+
   constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
   }
+
+  selectPostType(type){
+    this.postType = type;
+  }
+
 
 }
