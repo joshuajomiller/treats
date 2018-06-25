@@ -42,14 +42,15 @@ router.route('/:id')
 
 router.route('/:id/post')
   .post(function(req, res) {
-      let boardId = req.params.id;
-      let post = req.body.post;
-      Board.findById(boardId, function (err, board) {
-          board.posts = board.posts.push(post);
-          board.save(function (err, updatedBoard) {
-              res.send({status: 'post created'});
-          });
-      })
+    let boardId = req.params.id;
+    let post = req.body.post;
+		Board.findByIdAndUpdate(boardId, { $push: { posts: post }}, function (err, updatedBoard) {
+			if (err){
+				res.status(400).send(err);
+			} else {
+				res.send({status: 'post created'});
+			}
+		});
   });
 
 module.exports = router;
