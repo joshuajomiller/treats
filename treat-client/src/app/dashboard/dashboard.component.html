@@ -18,6 +18,8 @@
     <div class="col-12 col-sm-4 col-md-3" [hidden]="!boards.length && !currentBoard?.posts" *ngFor="let post of currentBoard?.posts">
       <div class="card post_card">
         <h5 class="card-title">{{post.title}}</h5>
+        <app-text-post *ngIf="post.post_type=='TextPost'" [text]="post.text"></app-text-post>
+        <app-toggle-post *ngIf="post.post_type=='TogglePost'"></app-toggle-post>
       </div>
     </div>
   </div>

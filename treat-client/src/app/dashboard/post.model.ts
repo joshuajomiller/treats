@@ -5,4 +5,5 @@ export class Post {
   textOn: string;
   textOff: string;
   state: boolean;
+  post_type: string;
 }

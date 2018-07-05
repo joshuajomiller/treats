@@ -1,1 +1,3 @@
-<input placeholder="Enter text" class="col" (change)="postChange()" [(ngModel)]="postDetails.text">
+<div [class.display-mode]="displayMode">
+  <input placeholder="Enter text" class="col" (change)="postChange()" [(ngModel)]="postDetails.text">
+</div>

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-text-post',
@@ -7,6 +7,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 })
 export class TextPostComponent implements OnInit {
 
+  @Input() text: string;
   @Output() postChanged = new EventEmitter();
 
   public postDetails = {
@@ -16,11 +17,17 @@ export class TextPostComponent implements OnInit {
     text: ''
   };
 
+  public displayMode: boolean = false;
+
   constructor() {
     this.postDetails.text = '';
   }
 
   ngOnInit() {
+    if (this.text){
+      this.postDetails.text = this.text;
+      this.displayMode = true;
+    }
   }
 
   postChange() {
