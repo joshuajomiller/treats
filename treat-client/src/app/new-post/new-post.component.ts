@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -8,16 +8,28 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class NewPostComponent implements OnInit {
 
-  public postType = '';
+  @Output() action = new EventEmitter();
+
+  public newPostType: string;
+  public newPost;
 
   constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
   }
 
-  selectPostType(type){
-    this.postType = type;
+  selectNewPostType(type) {
+    this.newPostType = type;
   }
 
+  onPostChange(post) {
+    console.log(post);
+    this.newPost = post;
+  }
+
+  closeModal() {
+    this.action.emit(this.newPost);
+    this.activeModal.close();
+  }
 
 }

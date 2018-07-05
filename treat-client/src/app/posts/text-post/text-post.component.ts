@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-text-post',
@@ -7,11 +7,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TextPostComponent implements OnInit {
 
-  public text = '';
+  @Output() postChanged = new EventEmitter();
 
-  constructor() { }
+  public postDetails = {
+    post_type: 'TextPost',
+    title: '',
+    tags: [],
+    text: ''
+  };
+
+  constructor() {
+    this.postDetails.text = '';
+  }
 
   ngOnInit() {
+  }
+
+  postChange() {
+    this.postChanged.emit(this.postDetails);
   }
 
 }
