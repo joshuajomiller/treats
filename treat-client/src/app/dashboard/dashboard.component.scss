@@ -1,8 +1,12 @@
 .post_card{
   text-align: center;
   min-height: 200px;
-  justify-content: center;
 }
 .post_card.post_new{
   cursor: pointer;
+}
+
+app-text-post{
+  flex: 1 0 auto;
+  display: flex;
 }

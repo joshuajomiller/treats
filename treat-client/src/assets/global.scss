@@ -1,0 +1,25 @@
+.display-mode input,
+.display-mode textarea{
+  border: 0;
+  pointer-events: none;
+}
+
+.post-wrapper{
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+}
+
+.post-tools{
+  display: none;
+}
+
+.display-mode .post-tools{
+  display: inline-block;
+  margin: 0 5px;
+  flex: 1 0 auto;
+}
+
+.post-body {
+  flex: 1 0 auto;
+}

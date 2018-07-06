@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
     this.getAllBoards()
       .then((boards) => {
         this.boards = boards;
-        this.selectBoard(this.boards[0]);
+        this.selectBoard(false);
         this.pageLoaded = true;
       });
   }
@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit {
   }
 
   selectBoard(board) {
-    this.currentBoard = board;
+    this.currentBoard = board ? board : this.currentBoard ? this.currentBoard : this.boards[0];
   }
 
   openNewBoardModal() {

@@ -1,3 +1,9 @@
-<div [class.display-mode]="displayMode">
-  <input placeholder="Enter text" class="col" (change)="postChange()" [(ngModel)]="postDetails.text">
+<div class="post-wrapper" [class.display-mode]="displayMode">
+  <div class="post-tools">
+    <div class="edit-button">Edit</div>
+    <div class="delete-button">Delete</div>
+  </div>
+  <div class="post-body">
+    <textarea placeholder="Enter text" (change)="postChange()" [(ngModel)]="postDetails.text"></textarea>
+  </div>
 </div>
