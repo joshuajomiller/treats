@@ -18,7 +18,7 @@ export class NewBoardComponent implements OnInit {
   ngOnInit() {
   }
 
-  closeModal() {
+  createPost() {
     this.action.emit(this.boardName);
     this.activeModal.close();
   }

@@ -10,25 +10,13 @@ export class NewPostComponent implements OnInit {
 
   @Output() action = new EventEmitter();
 
-  public newPostType: string;
-  public newPost;
-
   constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
   }
 
   selectNewPostType(type) {
-    this.newPostType = type;
-  }
-
-  onPostChange(post) {
-    console.log(post);
-    this.newPost = post;
-  }
-
-  closeModal() {
-    this.action.emit(this.newPost);
+    this.action.emit(type);
     this.activeModal.close();
   }
 

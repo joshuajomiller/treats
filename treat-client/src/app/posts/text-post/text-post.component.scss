@@ -1,12 +1,5 @@
 @import url(assets/global.scss);
 
-.post-wrapper{
-  display: flex;
-  flex-direction: column;
-  flex: 1 0 auto;
-}
-
 .edit-button, .delete-button{
   display: inline-block;
 }
-

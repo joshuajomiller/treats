@@ -6,20 +6,17 @@
 
 .post-wrapper{
   display: flex;
-  flex-direction: column;
-  flex: 1 0 auto;
-}
-
-.post-tools{
-  display: none;
-}
-
-.display-mode .post-tools{
-  display: inline-block;
-  margin: 0 5px;
-  flex: 1 0 auto;
+  flex-direction: row;
+  margin: 5px 0;
+  padding: 5px;
+  border-bottom: 1px solid #e8e8e8;
 }
 
 .post-body {
-  flex: 1 0 auto;
+  flex: 1 1 auto;
+}
+
+.post-tools{
+  margin: 0 5px;
+  flex: 0 1 auto;
 }

@@ -60,11 +60,20 @@ export class DashboardComponent implements OnInit {
   openNewPostModal() {
     const modalRef = this.modalService.open(NewPostComponent);
     modalRef.componentInstance.name = 'NewPost';
-    modalRef.componentInstance.action.subscribe(post => {
-      this.dashboardService.newPost(this.currentBoard._id, post)
-        .subscribe(response => {
-          this.refreshPage();
-        });
+    modalRef.componentInstance.action.subscribe(type => {
+      this.newEmptyPost(type);
+      // this.dashboardService.newPost(this.currentBoard._id, post)
+      //   .subscribe(response => {
+      //     this.refreshPage();
+      //   });
     });
+  }
+
+  newEmptyPost(type) {
+    this.currentBoard.posts.unshift(
+      {
+        post_type: type
+      }
+    );
   }
 }
