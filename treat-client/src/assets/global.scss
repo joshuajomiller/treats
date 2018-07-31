@@ -19,4 +19,10 @@
 .post-tools{
   margin: 0 5px;
   flex: 0 1 auto;
+  display: none;
+  cursor: pointer;
+}
+
+.post-wrapper:hover .post-tools{
+  display: block;
 }

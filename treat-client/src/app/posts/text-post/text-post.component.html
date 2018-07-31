@@ -1,8 +1,14 @@
 <div class="post-wrapper col-12" [class.display-mode]="displayMode">
   <div class="post-body">
-    <input class="col-12" placeholder="Enter text" (change)="postChange()" [(ngModel)]="postDetails.text">
+    <input class="col-12" placeholder="Enter text" [(ngModel)]="post.text">
   </div>
-  <div class="post-tools">
+  <div class="post-tools" [hidden]="!displayMode"
+       ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+       popoverTitle="Popover on top"
+       placement="right">
     <i class="fas fa-ellipsis-v"></i>
+  </div>
+  <div class="post-save" [hidden]="displayMode" (click)="savePost()">
+    <i class="far fa-check-circle"></i>
   </div>
 </div>

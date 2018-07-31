@@ -62,10 +62,6 @@ export class DashboardComponent implements OnInit {
     modalRef.componentInstance.name = 'NewPost';
     modalRef.componentInstance.action.subscribe(type => {
       this.newEmptyPost(type);
-      // this.dashboardService.newPost(this.currentBoard._id, post)
-      //   .subscribe(response => {
-      //     this.refreshPage();
-      //   });
     });
   }
 
@@ -75,5 +71,14 @@ export class DashboardComponent implements OnInit {
         post_type: type
       }
     );
+  }
+
+  savePost(post) {
+    if (!post.id) {
+      this.dashboardService.newPost(this.currentBoard._id, post)
+        .subscribe(response => {
+          this.refreshPage();
+        });
+    }
   }
 }

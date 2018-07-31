@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="col-12" [hidden]="!boards.length && !currentBoard?.posts" *ngFor="let post of currentBoard?.posts">
-      <app-text-post *ngIf="post.post_type=='TextPost'" [text]="post.text"></app-text-post>
+      <app-text-post *ngIf="post.post_type=='TextPost'" [post]="post" (postSaved)="savePost($event)"></app-text-post>
       <app-toggle-post *ngIf="post.post_type=='TogglePost'"></app-toggle-post>
     </div>
   </div>

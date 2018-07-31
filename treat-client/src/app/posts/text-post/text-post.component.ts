@@ -7,31 +7,21 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class TextPostComponent implements OnInit {
 
-  @Input() text: string;
-  @Output() postChanged = new EventEmitter();
+  @Input() post;
+  @Output() postSaved = new EventEmitter();
 
-  public postDetails = {
-    post_type: 'TextPost',
-    title: '',
-    tags: [],
-    text: ''
-  };
+  public displayMode = true;
 
-  public displayMode: boolean = false;
-
-  constructor() {
-    this.postDetails.text = '';
-  }
+  constructor() {}
 
   ngOnInit() {
-    if (this.text){
-      this.postDetails.text = this.text;
-      this.displayMode = true;
+    if (!this.post.text) {
+      this.displayMode = false;
     }
   }
 
-  postChange() {
-    this.postChanged.emit(this.postDetails);
+  savePost() {
+    this.postSaved.emit(this.post);
+    this.displayMode = true;
   }
-
 }
