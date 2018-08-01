@@ -13,11 +13,11 @@ router.route('/')
   .post(function (req, res) {
       let userId = req.tokenDetails.iat;
       let name = req.body.name;
-      Board.create({name: name, userId: userId}, function (err, small) {
+      Board.create({name: name, userId: userId}, function (err, board) {
           if (err) {
               res.status(400).send(err)
           } else {
-              res.send({status: 'board created'});
+              res.send(board);
           }
       });
   });
