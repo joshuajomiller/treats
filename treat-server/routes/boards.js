@@ -53,4 +53,28 @@ router.route('/:id/post')
 		});
   });
 
+router.route('/:id/post/:postId')
+  .delete(function(req, res) {
+    let boardId = req.params.id;
+    let postId = req.params.postId;
+
+		Board.findById(boardId, function(err, board) {
+			if ( board ) {
+				let post = board.posts.id(postId);
+				if (post) {
+					post.remove();
+					board.save(function (err) {
+						if (err) {
+							res.status(400).send(err);
+						} else {
+							res.send({status: 'post deleted'});
+						}
+					});
+				} else {
+					res.status(400).send("post not found");
+				}
+			}
+		});
+  });
+
 module.exports = router;
