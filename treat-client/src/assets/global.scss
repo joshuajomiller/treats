@@ -26,3 +26,12 @@
 .post-wrapper:hover .post-tools{
   display: block;
 }
+
+.post-tools-open{
+  display: inline-flex;
+}
+.post-save,
+.post-delete{
+  margin: 3px 5px;
+  cursor: pointer;
+}

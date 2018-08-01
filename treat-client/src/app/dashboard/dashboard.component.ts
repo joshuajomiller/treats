@@ -3,6 +3,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NewPostComponent} from '../new-post/new-post.component';
 import {DashboardService} from './dashboard.service';
 import {Board} from './board.model';
+import {Post} from './post.model';
 import {NewBoardComponent} from '../new-board/new-board.component';
 
 @Component({
@@ -65,7 +66,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  newEmptyPost(type) {
+  newEmptyPost(type: string) {
     this.currentBoard.posts.unshift(
       {
         post_type: type
@@ -74,11 +75,20 @@ export class DashboardComponent implements OnInit {
   }
 
   savePost(post) {
-    if (!post.id) {
+    if (!post._id) {
       this.dashboardService.newPost(this.currentBoard._id, post)
         .subscribe(response => {
           this.refreshPage(false);
         });
     }
+  }
+
+  deletePost(post: Post) {
+    this.dashboardService.deletePost(this.currentBoard._id, post._id)
+      .subscribe(response => {
+        this.currentBoard.posts = this.currentBoard.posts.filter((cPost: Post) => {
+          return cPost._id !== post._id;
+        });
+      });
   }
 }

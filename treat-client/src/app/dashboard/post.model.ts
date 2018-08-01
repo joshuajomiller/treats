@@ -5,4 +5,5 @@ export class Post {
   textOff?: string;
   state?: boolean;
   post_type: string;
+  _id?: string;
 }

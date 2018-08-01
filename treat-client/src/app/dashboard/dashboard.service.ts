@@ -22,6 +22,10 @@ export class DashboardService {
     return this.http.post('/api/board/' + boardId + '/post', {post: post});
   }
 
+  deletePost(boardId, postId) {
+    return this.http.delete('/api/board/' + boardId + '/post/' + postId, );
+  }
+
   getBoard(id: number) {
     return this.http.get<Board>('/api/board/' + id);
   }

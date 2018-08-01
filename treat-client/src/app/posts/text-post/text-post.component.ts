@@ -9,6 +9,7 @@ export class TextPostComponent implements OnInit {
 
   @Input() post;
   @Output() postSaved = new EventEmitter();
+  @Output() postDelete = new EventEmitter();
 
   public displayMode = true;
 
@@ -20,8 +21,16 @@ export class TextPostComponent implements OnInit {
     }
   }
 
+  editPost() {
+    this.displayMode = false;
+  }
+
   savePost() {
     this.postSaved.emit(this.post);
     this.displayMode = true;
+  }
+
+  deletePost() {
+    this.postDelete.emit(this.post);
   }
 }
