@@ -20,15 +20,15 @@ export class DashboardComponent implements OnInit {
     private dashboardService: DashboardService) { }
 
   ngOnInit() {
-    this.refreshPage();
+    this.refreshPage(false);
   }
 
-  refreshPage() {
+  refreshPage(selectedBoard) {
     this.pageLoaded = false;
     this.getAllBoards()
       .then((boards) => {
         this.boards = boards;
-        this.selectBoard(false);
+        this.selectBoard(selectedBoard);
         this.pageLoaded = true;
       });
   }
@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit {
   }
 
   selectBoard(board) {
-    this.currentBoard = board ? board : this.currentBoard ? this.currentBoard : this.boards[0];
+    this.currentBoard = (board ? board : this.currentBoard ? this.currentBoard : this.boards[0]);
   }
 
   openNewBoardModal() {
@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit {
     modalRef.componentInstance.action.subscribe(boardName => {
       this.dashboardService.newBoard(boardName)
         .subscribe(response => {
-          this.refreshPage();
+          this.refreshPage(response);
         });
     });
   }
@@ -77,7 +77,7 @@ export class DashboardComponent implements OnInit {
     if (!post.id) {
       this.dashboardService.newPost(this.currentBoard._id, post)
         .subscribe(response => {
-          this.refreshPage();
+          this.refreshPage(false);
         });
     }
   }

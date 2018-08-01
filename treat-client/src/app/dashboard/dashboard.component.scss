@@ -1,8 +1,39 @@
-.post_new{
-  cursor: pointer;
-}
-
 app-text-post{
   flex: 1 0 auto;
   display: flex;
+}
+
+.board_wrapper {
+  float: left;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  margin: 0 3px;
+  transition: all ease-in-out 400ms;
+}
+
+.board_wrapper:hover {
+  border: 1px solid #0d3349;
+}
+
+.board_wrapper.selected {
+  background: #0d3349;
+  color: #fff;
+}
+
+.new_post_wrapper{
+  float: right;
+  cursor: pointer;
+  padding: 10px 12px;
+  border-radius: 25px;
+  border: 1px solid transparent;
+  color: #3E677F;
+}
+
+.new_post_wrapper:hover{
+  background: #3E677F;
+  color: #fff;
+  transition: all ease 500ms;
+  border: 1px solid #3E677F;
 }
