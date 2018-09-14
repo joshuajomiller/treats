@@ -7,18 +7,21 @@
 <div class="modal-body">
   <div class="container">
     <div class="row">
-      <div class="col-12 col-sm-6 post_type_wrapper" (click)="selectNewPostType('TextPost')">
-        <div class="card text-center">
-          <p><i class="fas fa-font"></i></p>
-          <h5 class="card-title">Simple Text</h5>
-        </div>
+      <div class="col">
+        <app-ngx-editor [placeholder]="'Enter text here...'" [spellcheck]="true" [(ngModel)]="postContent"></app-ngx-editor>
       </div>
-      <div class="col-12 col-sm-6 post_type_wrapper" (click)="selectNewPostType('TogglePost')">
-        <div class="card text-center">
-          <p><i class="fas fa-toggle-on"></i></p>
-          <h5 class="card-title">Toggle</h5>
-        </div>
-      </div>
+      <!--<div class="col-12 col-sm-6 post_type_wrapper" (click)="selectNewPostType('TextPost')">-->
+        <!--<div class="card text-center">-->
+          <!--<p><i class="fas fa-font"></i></p>-->
+          <!--<h5 class="card-title">Simple Text</h5>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="col-12 col-sm-6 post_type_wrapper" (click)="selectNewPostType('TogglePost')">-->
+        <!--<div class="card text-center">-->
+          <!--<p><i class="fas fa-toggle-on"></i></p>-->
+          <!--<h5 class="card-title">Toggle</h5>-->
+        <!--</div>-->
+      <!--</div>-->
     </div>
   </div>
 </div>

@@ -12,6 +12,8 @@ export class NewPostComponent implements OnInit {
 
   constructor(public activeModal: NgbActiveModal) { }
 
+  public postContent: string;
+
   ngOnInit() {
   }
 
