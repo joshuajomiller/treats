@@ -8,8 +8,9 @@
   display: flex;
   flex-direction: row;
   margin: 5px 0;
-  padding: 5px;
-  border-bottom: 1px solid #e8e8e8;
+  padding: 10px;
+  border: 1px solid #e8e8e8;
+  border-radius: 5px;
 }
 
 .post-body {
@@ -19,12 +20,12 @@
 .post-tools{
   margin: 0 5px;
   flex: 0 1 auto;
-  display: none;
+  visibility: hidden;
   cursor: pointer;
 }
 
 .post-wrapper:hover .post-tools{
-  display: block;
+  visibility: visible;
 }
 
 .post-tools-open{

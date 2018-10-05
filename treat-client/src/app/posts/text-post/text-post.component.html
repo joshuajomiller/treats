@@ -1,6 +1,7 @@
 <div class="post-wrapper col-12" [class.display-mode]="displayMode">
   <div class="post-body">
-    <input class="col-12" placeholder="Enter text" [(ngModel)]="post.text">
+    <input class="col-12" placeholder="Enter text" [(ngModel)]="post.text" [hidden]="displayMode">
+    <div [innerHTML]="post.text" [hidden]="!displayMode"></div>
   </div>
   <div class="post-tools" [hidden]="!displayMode" (click)="editPost()">
     <i class="fas fa-pencil-alt"></i>

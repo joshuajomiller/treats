@@ -13,7 +13,7 @@ import {NewBoardComponent} from '../new-board/new-board.component';
 })
 export class DashboardComponent implements OnInit {
   public boards: Board[] = [];
-  public currentBoard: Board;
+  public currentBoard: string;
   public pageLoaded = false;
 
   constructor(
@@ -24,12 +24,20 @@ export class DashboardComponent implements OnInit {
     this.refreshPage(false);
   }
 
-  refreshPage(selectedBoard) {
+  refreshPage(selectedBoardId) {
     this.pageLoaded = false;
     this.getAllBoards()
       .then((boards) => {
         this.boards = boards;
-        this.selectBoard(selectedBoard);
+        let boardIndex = -1;
+        if (selectedBoardId) {
+          this.boards.forEach((board, index) => {
+            if (board._id === selectedBoardId) {
+              boardIndex = index;
+            }
+          });
+        }
+        this.selectBoard(boardIndex);
         this.pageLoaded = true;
       });
   }
@@ -43,8 +51,8 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  selectBoard(board) {
-    this.currentBoard = (board ? board : this.currentBoard ? this.currentBoard : this.boards[0]);
+  selectBoard(index) {
+    this.currentBoard = ( index !== -1 ? index : this.currentBoard ? this.currentBoard : 0);
   }
 
   openNewBoardModal() {
@@ -53,21 +61,23 @@ export class DashboardComponent implements OnInit {
     modalRef.componentInstance.action.subscribe(boardName => {
       this.dashboardService.newBoard(boardName)
         .subscribe(response => {
-          this.refreshPage(response);
+          this.refreshPage(response._id);
         });
     });
   }
 
   openNewPostModal() {
-    const modalRef = this.modalService.open(NewPostComponent);
+    const modalRef = this.modalService.open(NewPostComponent, { size: 'lg', centered: true });
     modalRef.componentInstance.name = 'NewPost';
-    modalRef.componentInstance.action.subscribe(type => {
-      this.newEmptyPost(type);
+    modalRef.componentInstance.action.subscribe(action => {
+      if (action.action === 'save') {
+        this.savePost(action.post);
+      }
     });
   }
 
   newEmptyPost(type: string) {
-    this.currentBoard.posts.unshift(
+    this.boards[this.currentBoard].posts.unshift(
       {
         post_type: type
       }
@@ -76,7 +86,7 @@ export class DashboardComponent implements OnInit {
 
   savePost(post) {
     if (!post._id) {
-      this.dashboardService.newPost(this.currentBoard._id, post)
+      this.dashboardService.newPost(this.boards[this.currentBoard]._id, post)
         .subscribe(response => {
           this.refreshPage(false);
         });
@@ -84,9 +94,9 @@ export class DashboardComponent implements OnInit {
   }
 
   deletePost(post: Post) {
-    this.dashboardService.deletePost(this.currentBoard._id, post._id)
+    this.dashboardService.deletePost(this.boards[this.currentBoard]._id, post._id)
       .subscribe(response => {
-        this.currentBoard.posts = this.currentBoard.posts.filter((cPost: Post) => {
+        this.boards[this.currentBoard].posts = this.boards[this.currentBoard].posts.filter((cPost: Post) => {
           return cPost._id !== post._id;
         });
       });

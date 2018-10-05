@@ -5,14 +5,14 @@
     </div>
 
     <div class="col-12 center-text" [hidden]="!boards.length">
-        <div class="board_wrapper" *ngFor="let board of boards" (click)="selectBoard(board)" [class.selected]="currentBoard._id === board._id">{{board.name}}</div>
+        <div class="board_wrapper" *ngFor="let board of boards; index as i" (click)="selectBoard(i)" [class.selected]="currentBoard === i">{{board.name}}</div>
         <div class="board_wrapper new" (click)="openNewBoardModal()"><i class="fas fa-plus"></i></div>
         <div class="new_post_wrapper" (click)="openNewPostModal()" [hidden]="!boards.length"><i class="fas fa-plus-circle"></i> Add a new post</div>
     </div>
   </div>
 
   <div class="row mt-5">
-    <div class="col-12" [hidden]="!boards.length && !currentBoard?.posts" *ngFor="let post of currentBoard?.posts">
+    <div class="col-12" [hidden]="!boards.length && !boards[currentBoard]?.posts" *ngFor="let post of boards[currentBoard]?.posts">
       <app-text-post *ngIf="post.post_type=='TextPost'" [post]="post" (postSaved)="savePost($event)" (postDelete)="deletePost($event)"></app-text-post>
       <app-toggle-post *ngIf="post.post_type=='TogglePost'"></app-toggle-post>
     </div>

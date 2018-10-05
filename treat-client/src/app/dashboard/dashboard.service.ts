@@ -15,7 +15,7 @@ export class DashboardService {
   }
 
   newBoard(name) {
-    return this.http.post('/api/board/', {name: name});
+    return this.http.post<Board>('/api/board/', {name: name});
   }
 
   newPost(boardId, post) {
