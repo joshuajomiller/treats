@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 import {NewPostComponent} from '../new-post/new-post.component';
 import {DashboardService} from './dashboard.service';
 import {Board} from './board.model';
@@ -15,10 +15,15 @@ export class DashboardComponent implements OnInit {
   public boards: Board[] = [];
   public currentBoard: string;
   public pageLoaded = false;
+  private modalOption: NgbModalOptions = {};
 
   constructor(
     private modalService: NgbModal,
-    private dashboardService: DashboardService) { }
+    private dashboardService: DashboardService) {
+    this.modalOption.backdrop = 'static';
+    this.modalOption.centered = true;
+    this.modalOption.size = 'lg';
+  }
 
   ngOnInit() {
     this.refreshPage(false);
@@ -55,8 +60,8 @@ export class DashboardComponent implements OnInit {
     this.currentBoard = ( index !== -1 ? index : this.currentBoard ? this.currentBoard : 0);
   }
 
-  openNewBoardModal() {
-    const modalRef = this.modalService.open(NewBoardComponent);
+  newBoard() {
+    const modalRef = this.modalService.open(NewBoardComponent, this.modalOption);
     modalRef.componentInstance.name = 'NewBoard';
     modalRef.componentInstance.action.subscribe(boardName => {
       this.dashboardService.newBoard(boardName)
@@ -66,27 +71,28 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  openNewPostModal() {
-    const modalRef = this.modalService.open(NewPostComponent, { size: 'lg', centered: true });
-    modalRef.componentInstance.name = 'NewPost';
-    modalRef.componentInstance.action.subscribe(action => {
-      if (action.action === 'save') {
-        this.savePost(action.post);
-      }
-    });
-  }
-
-  newEmptyPost(type: string) {
-    this.boards[this.currentBoard].posts.unshift(
-      {
-        post_type: type
-      }
-    );
+  newPost(post) {
+    const modalRef = this.modalService.open(NewPostComponent, this.modalOption);
+    post = post || { post_type: 'TextPost', text: '' };
+    modalRef.componentInstance.post = post;
+    // modalRef.componentInstance.action.subscribe(action => {
+    //   if (action.action === 'save') {
+    //     this.savePost(action.post);
+    //   }
+    // });
+    modalRef.result.then((newPost) => {
+      this.savePost(newPost);
+    }, (reason) => {});
   }
 
   savePost(post) {
     if (!post._id) {
       this.dashboardService.newPost(this.boards[this.currentBoard]._id, post)
+        .subscribe(response => {
+          this.refreshPage(false);
+        });
+    } else {
+      this.dashboardService.editPost(this.boards[this.currentBoard]._id, post._id, post)
         .subscribe(response => {
           this.refreshPage(false);
         });

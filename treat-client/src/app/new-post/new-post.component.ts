@@ -7,10 +7,10 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./new-post.component.scss']
 })
 export class NewPostComponent implements OnInit {
-  @Output() action = new EventEmitter();
+  @Input() post;
 
   public editorConfig;
-  public post
+  public postBackup;
 
   constructor(public activeModal: NgbActiveModal) {
     this.editorConfig = {
@@ -40,11 +40,17 @@ export class NewPostComponent implements OnInit {
     };
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.postBackup = { ...this.post};
+  }
 
   savePost() {
-    this.action.emit({action: 'save', post: this.post});
-    this.activeModal.close();
+    this.activeModal.close(this.post);
+  }
+
+  dismiss() {
+    this.post.text = this.postBackup.text;
+    this.activeModal.dismiss();
   }
 
 }

@@ -75,6 +75,29 @@ router.route('/:id/post/:postId')
 				}
 			}
 		});
+  })
+  .put(function(req, res) {
+    let boardId = req.params.id;
+    let postId = req.params.postId;
+		let editedPost = req.body.post;
+
+		Board.findById(boardId, function(err, board) {
+			if ( board ) {
+				let post = board.posts.id(postId);
+				if (post) {
+					post.$set({text: editedPost.text});
+					board.save(function (err) {
+						if (err) {
+							res.status(400).send(err);
+						} else {
+							res.send({status: 'post updated'});
+						}
+					});
+				} else {
+					res.status(400).send("post not found");
+				}
+			}
+		});
   });
 
 module.exports = router;

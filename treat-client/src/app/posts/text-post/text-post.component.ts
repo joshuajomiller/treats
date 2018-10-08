@@ -8,28 +8,16 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 export class TextPostComponent implements OnInit {
 
   @Input() post;
-  @Output() postSaved = new EventEmitter();
+  @Output() postEdit = new EventEmitter();
   @Output() postDelete = new EventEmitter();
-
-  public displayMode = true;
 
   constructor() {}
 
-  ngOnInit() {
-    if (!this.post.text) {
-      this.displayMode = false;
-    }
-  }
+  ngOnInit() {}
 
   editPost() {
-    this.displayMode = false;
+    this.postEdit.emit(this.post);
   }
-
-  savePost() {
-    this.postSaved.emit(this.post);
-    this.displayMode = true;
-  }
-
   deletePost() {
     this.postDelete.emit(this.post);
   }

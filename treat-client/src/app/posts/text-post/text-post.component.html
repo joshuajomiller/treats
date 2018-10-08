@@ -1,18 +1,14 @@
-<div class="post-wrapper col-12" [class.display-mode]="displayMode">
+<div class="post-wrapper col-12">
   <div class="post-body">
-    <input class="col-12" placeholder="Enter text" [(ngModel)]="post.text" [hidden]="displayMode">
-    <div [innerHTML]="post.text" [hidden]="!displayMode"></div>
+    <div [innerHTML]="post.text"></div>
   </div>
-  <div class="post-tools" [hidden]="!displayMode" (click)="editPost()">
-    <i class="fas fa-pencil-alt"></i>
-  </div>
-  <div class="post-tools-open" [hidden]="displayMode">
-    <div class="post-save" (click)="savePost()">
-      <i class="far fa-check-circle"></i>
-    </div>
-    <div class="post-delete" (click)="deletePost()">
-      <i class="far fa-trash-alt"></i>
-    </div>
+
+  <ng-template #popContent>
+    <div (click)="editPost(); editMenu.close()">Edit</div>
+    <div (click)="deletePost(); editMenu.close()">Delete</div>
+  </ng-template>
+  <div class="post-tools" #editMenu="ngbPopover" [ngbPopover]="popContent">
+    <i class="fas fa-ellipsis-h"></i>
   </div>
 </div>
 
