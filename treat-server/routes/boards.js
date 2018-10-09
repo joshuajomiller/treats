@@ -1,13 +1,21 @@
 let express = require('express');
 let router = express.Router();
 const Board = require("../models/Board");
+const User = require("../models/User");
 
 router.route('/')
 /* GET user's boards */
   .get(function (req, res) {
-    Board.find({}, function (err, boards) {
-      res.send(boards);
-    })
+		User.findOne({ email: req.tokenDetails.email})
+			.then(user => {
+				if (user.boards && user.boards.length){
+					Board.find({ _id: { "$in" : user.boards} }, function (err, boards) {
+						res.send(boards);
+					})
+				} else {
+					res.send();
+				}
+			});
   })
   /* POST new board */
   .post(function (req, res) {
@@ -17,7 +25,14 @@ router.route('/')
           if (err) {
               res.status(400).send(err)
           } else {
-              res.send(board);
+							User.findOne({ email: req.tokenDetails.email})
+								.then(user => {
+									user.boards.push(board._id);
+									user.save(()=>{
+										res.send(board);
+									});
+								})
+
           }
       });
   });

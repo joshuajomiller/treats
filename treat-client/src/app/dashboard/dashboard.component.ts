@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
     this.pageLoaded = false;
     this.getAllBoards()
       .then((boards) => {
-        this.boards = boards;
+        this.boards = boards || [];
         let boardIndex = -1;
         if (selectedBoardId) {
           this.boards.forEach((board, index) => {

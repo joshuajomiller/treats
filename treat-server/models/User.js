@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
   password: String,
   passwordResetToken: String,
   passwordResetExpires: Date,
+  boards: [],
   profile: {
     name: String,
     organisation: String,

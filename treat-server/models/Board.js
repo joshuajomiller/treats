@@ -12,7 +12,7 @@ const postSchema = new mongoose.Schema({
 
 const boardSchema = new mongoose.Schema({
   name: String,
-  userId: String,
+  ownerId: String,
   posts: [postSchema]
 }, { timestamps: true });
 
