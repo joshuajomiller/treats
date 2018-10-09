@@ -4,11 +4,13 @@
   </div>
 
   <ng-template #popContent>
-    <div (click)="editPost(); editMenu.close()">Edit</div>
-    <div (click)="deletePost(); editMenu.close()">Delete</div>
+    <div class="post-edit-action" (click)="editPost(); editMenu.close()">Edit</div>
+    <div class="post-edit-action" (click)="deletePost(); editMenu.close()">Delete</div>
   </ng-template>
-  <div class="post-tools" #editMenu="ngbPopover" [ngbPopover]="popContent">
-    <i class="fas fa-ellipsis-h"></i>
+  <div class="post-tools">
+    <div #editMenu="ngbPopover" [ngbPopover]="popContent" placement="bottom">
+      <i class="fas fa-ellipsis-h"></i>
+    </div>
   </div>
 </div>
 
