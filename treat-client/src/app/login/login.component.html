@@ -1,22 +1,52 @@
 <div class="container mt-5">
-  <div class="row">
-    <div class="col">
-      <form>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" [(ngModel)]="email" name="email">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <div class="card" [hidden]="!showLogin">
+        <div class="card-body">
+          <h3 class="card-title float-left mb-4">Login</h3>
+          <h6 class="card-subtitle text-muted float-right mt-3" (click)="toggleCard()">Register</h6>
+          <form>
+            <div class="form-group">
+              <!--<label for="exampleInputEmail1">Email address</label>-->
+              <input type="email" class="form-control" id="loginEmail" aria-describedby="emailHelp"
+                     placeholder="Email" [(ngModel)]="email" name="email">
+            </div>
+            <div class="form-group">
+              <!--<label for="exampleInputPassword1">Password</label>-->
+              <input type="password" class="form-control" id="loginPassword" placeholder="Password"
+                     [(ngModel)]="password" name="password">
+            </div>
+            <div class="form-group form-check text-right">
+              <input type="checkbox" class="form-check-input" id="loginRemember" [(ngModel)]="remember" name="remember">
+              <label class="form-check-label" for="loginRemember">Keep me signed in</label>
+            </div>
+            <button type="submit" class="btn btn-primary float-right" (click)="login()">Login</button>
+          </form>
         </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" [(ngModel)]="password" name="password">
+      </div>
+
+      <div class="card" [hidden]="showLogin">
+        <div class="card-body">
+          <h3 class="card-title float-left mb-4">Register</h3>
+          <h6 class="card-subtitle text-muted float-right mt-3" (click)="toggleCard()">Login</h6>
+          <form>
+            <div class="form-group">
+              <input type="email" class="form-control" id="registerEmail" aria-describedby="emailHelp"
+                     placeholder="Email" [(ngModel)]="email" name="email">
+              <small id="registerEmailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" id="registerPassword" placeholder="Password"
+                     [(ngModel)]="password" name="password">
+            </div>
+            <div class="form-group form-check text-right">
+              <input type="checkbox" class="form-check-input" id="registerRemember" [(ngModel)]="remember" name="remember">
+              <label class="form-check-label" for="registerRemember">Keep me signed in</label>
+            </div>
+            <button type="submit" class="btn btn-primary float-right" (click)="register()">Register</button>
+          </form>
         </div>
-        <div class="form-group form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="remember" name="remember">
-          <label class="form-check-label" for="exampleCheck1">Remember me</label>
-        </div>
-        <button type="submit" class="btn btn-primary" (click)="login()">Submit</button>
-      </form>
+      </div>
     </div>
   </div>
 </div>
