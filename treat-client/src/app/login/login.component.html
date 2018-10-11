@@ -1,10 +1,10 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
-    <div class="col-6">
+    <div class="col-xs-12 col-sm-6">
       <div class="card" [hidden]="!showLogin">
         <div class="card-body">
           <h3 class="card-title float-left mb-4">Login</h3>
-          <h6 class="card-subtitle text-muted float-right mt-3" (click)="toggleCard()">Register</h6>
+          <h6 class="card-subtitle text-muted float-right mt-2" (click)="toggleCard()">Register</h6>
           <form>
             <div class="form-group">
               <!--<label for="exampleInputEmail1">Email address</label>-->
@@ -28,7 +28,7 @@
       <div class="card" [hidden]="showLogin">
         <div class="card-body">
           <h3 class="card-title float-left mb-4">Register</h3>
-          <h6 class="card-subtitle text-muted float-right mt-3" (click)="toggleCard()">Login</h6>
+          <h6 class="card-subtitle text-muted float-right mt-2" (click)="toggleCard()">Login</h6>
           <form>
             <div class="form-group">
               <input type="email" class="form-control" id="registerEmail" aria-describedby="emailHelp"
