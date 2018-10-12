@@ -5,6 +5,7 @@ import {DashboardService} from './dashboard.service';
 import {Board} from './board.model';
 import {Post} from './post.model';
 import {NewBoardComponent} from '../new-board/new-board.component';
+import {ShareBoardComponent} from '../share-board/share-board.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,7 +30,7 @@ export class DashboardComponent implements OnInit {
     this.refreshPage(false);
   }
 
-  refreshPage(selectedBoardId) {
+  refreshPage(selectedBoardId?) {
     this.pageLoaded = false;
     this.getAllBoards()
       .then((boards) => {
@@ -107,4 +108,15 @@ export class DashboardComponent implements OnInit {
         });
       });
   }
+
+  shareBoard() {
+    const modalRef = this.modalService.open(ShareBoardComponent, this.modalOption);
+    modalRef.componentInstance.name = 'ShareBoard';
+    modalRef.componentInstance.action.subscribe(data => {
+      this.dashboardService.shareBoard(this.boards[this.currentBoard]._id, data)
+        .subscribe(() => {
+          this.refreshPage();
+        });
+    });
+  };
 }

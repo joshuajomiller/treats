@@ -7,11 +7,14 @@
     <div class="col-12 center-text" [hidden]="!boards.length">
         <div class="board_wrapper" *ngFor="let board of boards; index as i" (click)="selectBoard(i)" [class.selected]="currentBoard === i">{{board.name}}</div>
         <div class="board_wrapper new" (click)="newBoard()"><i class="fas fa-plus"></i></div>
-        <div class="new_post_wrapper" (click)="newPost()" [hidden]="!boards.length"><i class="fas fa-plus-circle"></i> Add a new post</div>
+        <div class="board_wrapper share" (click)="shareBoard()"><i class="fas fa-share"></i></div>
     </div>
   </div>
 
   <div class="row mt-5">
+    <div class="col">
+      <div class="new_post_wrapper" (click)="newPost()" [hidden]="!boards.length">New Post</div>
+    </div>
     <div class="col-12" [hidden]="!boards.length && !boards[currentBoard]?.posts" *ngFor="let post of boards[currentBoard]?.posts">
       <app-text-post *ngIf="post.post_type=='TextPost'" [post]="post" (postEdit)="newPost($event)" (postDelete)="deletePost($event)"></app-text-post>
     </div>

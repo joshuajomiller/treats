@@ -20,6 +20,7 @@ import {AuthService} from './auth/auth.service';
 import { NewBoardComponent } from './new-board/new-board.component';
 import { TextPostComponent } from './posts/text-post/text-post.component';
 import { TogglePostComponent } from './posts/toggle-post/toggle-post.component';
+import { ShareBoardComponent } from './share-board/share-board.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { TogglePostComponent } from './posts/toggle-post/toggle-post.component';
     NewPostComponent,
     NewBoardComponent,
     TextPostComponent,
-    TogglePostComponent
+    TogglePostComponent,
+    ShareBoardComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +50,8 @@ import { TogglePostComponent } from './posts/toggle-post/toggle-post.component';
   ],
   entryComponents: [
     NewPostComponent,
-    NewBoardComponent
+    NewBoardComponent,
+    ShareBoardComponent
   ],
   bootstrap: [AppComponent]
 })

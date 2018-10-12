@@ -26,14 +26,10 @@ app-text-post{
   float: right;
   cursor: pointer;
   padding: 10px 12px;
-  border-radius: 25px;
-  border: 1px solid transparent;
   color: #3E677F;
 }
 
 .new_post_wrapper:hover{
-  background: #3E677F;
-  color: #fff;
   transition: all ease 500ms;
-  border: 1px solid #3E677F;
+  text-decoration: underline;
 }
