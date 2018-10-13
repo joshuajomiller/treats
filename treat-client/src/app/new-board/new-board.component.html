@@ -13,7 +13,11 @@
     </div>
     <div class="row">
       <div class="col">
-        <input type="text" class="col" name="board_name" title="New Board Name" placeholder="New board name" [(ngModel)]="boardName">
+        <form>
+          <div class="form-group">
+            <input type="email" class="form-control" name="board_name" title="Board Name" placeholder="Board name" [(ngModel)]="boardName">
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -21,5 +25,5 @@
 
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-dark" (click)="createPost()">Create</button>
+  <button type="button" class="btn btn-primary" (click)="createPost()">Create</button>
 </div>

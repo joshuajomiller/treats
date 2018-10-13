@@ -1,3 +1,30 @@
-<p>
-  share-board works!
-</p>
+<div class="modal-header">
+  <h4 class="modal-title">Share board</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        Add some email addresses below to share your board. You can decide who can view your board and who can edit.
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col">
+        <form>
+          <div class="input-group">
+            <input type="email" class="form-control" name="email_address" title="Email address" placeholder="Email address" [(ngModel)]="boardName">
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button">Add</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="done()">Done</button>
+</div>
