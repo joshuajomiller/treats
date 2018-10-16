@@ -15,9 +15,9 @@
       <div class="col">
         <form>
           <div class="input-group">
-            <input type="email" class="form-control" name="email_address" title="Email address" placeholder="Email address" [(ngModel)]="boardName">
+            <input type="email" class="form-control" name="email_address" title="Email address" placeholder="Email address" [(ngModel)]="emailAddress">
             <div class="input-group-append">
-              <button class="btn btn-primary" type="button">Add</button>
+              <button class="btn btn-primary" type="button" (click)="addUser()">Add</button>
             </div>
           </div>
         </form>
