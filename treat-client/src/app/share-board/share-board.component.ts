@@ -18,7 +18,7 @@ export class ShareBoardComponent implements OnInit {
   }
 
   addUser() {
-    this.action.emit({email: this.emailAddress});
+    this.action.emit({email: this.emailAddress, permission: 'view'});
   }
 
   done() {

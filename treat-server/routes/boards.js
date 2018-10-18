@@ -115,4 +115,45 @@ router.route('/:id/post/:postId')
 		});
   });
 
+router.route('/:id/share/')
+  .post(function(req, res) {
+    let boardId = req.params.id;
+		let email = req.body.email;
+		let permission = req.body.permission;
+
+		User.findOne({ email: email})
+			.then(user => {
+				if (user){
+					let userId = user._id;
+					Board.findById(boardId, function(err, board) {
+						if ( board ) {
+							let sharedWith = board.sharedUsers.filter(user=>{
+								console.log('checking: ' + user.id + ' against ' + userId);
+								return user.id.equals(userId);
+							});
+							if (!sharedWith.length) {
+								board.sharedUsers.push({
+									id: userId,
+									permission: permission
+								});
+								board.save(function (err) {
+									if (err) {
+										res.status(400).send(err);
+									} else {
+										res.send({status: 'board shared with user'});
+									}
+								});
+							} else {
+								res.status(400).send({error: 'user already exists'});
+							}
+						}
+					});
+				} else {
+					console.log('not found user');
+					res.status(400).send({status: 'user not found'});
+
+				}
+			});
+  });
+
 module.exports = router;

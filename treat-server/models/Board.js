@@ -13,7 +13,8 @@ const postSchema = new mongoose.Schema({
 const boardSchema = new mongoose.Schema({
   name: String,
   ownerId: String,
-  posts: [postSchema]
+  posts: [postSchema],
+	sharedUsers: Array
 }, { timestamps: true });
 
 boardSchema.path('posts').discriminator('TextPost', new mongoose.Schema({
