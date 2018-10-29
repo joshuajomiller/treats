@@ -23,6 +23,16 @@
         </form>
       </div>
     </div>
+    <div class="row mt-3">
+      <div class="row" *ngFor="let user of sharedUsers">
+        <div class="col">
+          {{user.email}}
+        </div>
+        <div class="col">
+          {{user.permission}}
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <div class="modal-footer">

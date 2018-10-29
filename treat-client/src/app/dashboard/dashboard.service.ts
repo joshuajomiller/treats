@@ -34,6 +34,10 @@ export class DashboardService {
     return this.http.get<Board>('/api/board/' + id);
   }
 
+  getSharedBoardUsers(boardId) {
+    return this.http.get('/api/board/' + boardId + '/share');
+  }
+
   shareBoard(boardId, data) {
     return this.http.post('/api/board/' + boardId + '/share', data);
   }

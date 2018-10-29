@@ -110,13 +110,17 @@ export class DashboardComponent implements OnInit {
   }
 
   shareBoard() {
-    const modalRef = this.modalService.open(ShareBoardComponent, this.modalOption);
-    modalRef.componentInstance.name = 'ShareBoard';
-    modalRef.componentInstance.action.subscribe(data => {
-      this.dashboardService.shareBoard(this.boards[this.currentBoard]._id, data)
-        .subscribe(() => {
-          this.refreshPage();
+    this.dashboardService.getSharedBoardUsers(this.boards[this.currentBoard]._id)
+      .subscribe(sharedUsers => {
+        const modalRef = this.modalService.open(ShareBoardComponent, this.modalOption);
+        modalRef.componentInstance.name = 'ShareBoard';
+        modalRef.componentInstance.sharedUsers = sharedUsers;
+        modalRef.componentInstance.action.subscribe(data => {
+          this.dashboardService.shareBoard(this.boards[this.currentBoard]._id, data)
+            .subscribe(() => {
+              this.refreshPage();
+            });
         });
-    });
+      });
   };
 }

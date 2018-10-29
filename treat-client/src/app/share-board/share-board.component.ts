@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -10,6 +10,7 @@ export class ShareBoardComponent implements OnInit {
 
   public emailAddress: string;
 
+  @Input() sharedUsers;
   @Output() action = new EventEmitter();
 
   constructor(public activeModal: NgbActiveModal) { }
