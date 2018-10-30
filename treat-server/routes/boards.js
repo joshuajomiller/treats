@@ -119,20 +119,24 @@ router.route('/:id/share/')
         let boardId = req.params.id;
         Board.findById(boardId, function (err, board) {
             if (board) {
-                let sharedWith = [];
-                board.sharedUsers.forEach((sharedUser, index) => {
-                    User.findById(sharedUser.id, function (err, user) {
-                        if (user) {
-                            sharedWith.push({
-                                email: user.email,
-                                permission: sharedUser.permission
-                            });
-                        }
-                        if (index + 1 === board.sharedUsers.length){
-                            res.send(sharedWith);
-                        }
+                if (board.sharedUsers.length){
+                    let sharedWith = [];
+                    board.sharedUsers.forEach((sharedUser, index) => {
+                        User.findById(sharedUser.id, function (err, user) {
+                            if (user) {
+                                sharedWith.push({
+                                    email: user.email,
+                                    permission: sharedUser.permission
+                                });
+                            }
+                            if (index + 1 === board.sharedUsers.length){
+                                res.send(sharedWith);
+                            }
+                        });
                     });
-                });
+                } else {
+                    res.send();
+                }
             } else {
                 res.status(400).send({error: 'board does not exists'});
             }
