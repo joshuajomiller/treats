@@ -119,16 +119,16 @@ router.route('/:id/share/')
         let boardId = req.params.id;
         Board.findById(boardId, function (err, board) {
             if (board) {
-                console.log('found board');
                 let sharedWith = [];
-                board.sharedUsers.forEach(sharedUser => {
-                    console.log('chekcing:' + sharedUser.id);
+                board.sharedUsers.forEach((sharedUser, index) => {
                     User.findById(sharedUser.id, function (err, user) {
                         if (user) {
                             sharedWith.push({
                                 email: user.email,
                                 permission: sharedUser.permission
                             });
+                        }
+                        if (index + 1 === board.sharedUsers.length){
                             res.send(sharedWith);
                         }
                     });
