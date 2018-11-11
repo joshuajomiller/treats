@@ -6,15 +6,32 @@ const User = require("../models/User");
 router.route('/')
 /* GET user's boards */
     .get(function (req, res) {
+        let allBoards = [];
         User.findOne({email: req.tokenDetails.email})
             .then(user => {
+                let ownedBoardPromise;
                 if (user.boards && user.boards.length) {
-                    Board.find({_id: {"$in": user.boards}}, function (err, boards) {
-                        res.send(boards);
-                    })
-                } else {
-                    res.send();
+                    ownedBoardPromise = Board.find({_id: {"$in": user.boards}}).lean().exec();
                 }
+                let sharedBoardPromise = Board.find({ 'sharedUsers.id': user._id }).lean().exec();
+
+                Promise.all([ownedBoardPromise, sharedBoardPromise]).then(function(boards) {
+                    let ownedBoards = boards[0];
+                    if (ownedBoards && ownedBoards.length){
+                        ownedBoards.forEach(board => {
+                            board.status = 'owned';
+                        });
+                        allBoards = allBoards.concat(ownedBoards);
+                    }
+                    let sharedBoards = boards[1];
+                    if (sharedBoards && sharedBoards.length){
+                        sharedBoards.forEach(board => {
+                            board.status = 'shared';
+                        });
+                        allBoards = allBoards.concat(sharedBoards);
+                    }
+                    res.send(allBoards);
+                });
             });
     })
     /* POST new board */

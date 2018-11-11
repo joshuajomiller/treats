@@ -5,4 +5,5 @@ export class Board {
   userId: string;
   posts: Post[];
   _id: string;
+  status: string;
 }
