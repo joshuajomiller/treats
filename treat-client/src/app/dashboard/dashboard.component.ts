@@ -121,13 +121,13 @@ export class DashboardComponent implements OnInit {
         modalRef.componentInstance.action.subscribe(data => {
           if (data.action === 'add') {
             this.dashboardService.shareBoard(this.boards[this.currentBoard]._id, {email: data.email})
-              .subscribe((response) => {
+              .subscribe((response: any) => {
                 modalRef.componentInstance.sharedUsers.push(response.email);
                 modalRef.componentInstance.emailAddress = '';
               });
           } else if (data.action === 'delete') {
             this.dashboardService.deleteSharedBoardUser(this.boards[this.currentBoard]._id, {email: data.email})
-              .subscribe((response) => {
+              .subscribe((response: any) => {
                 modalRef.componentInstance.sharedUsers = modalRef.componentInstance.sharedUsers.filter(user => {
                   return user !== response.email;
                 });

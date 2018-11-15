@@ -1,4 +1,4 @@
-<div class="container mt-5" [hidden]="pageLoaded && !pageLoaded">
+<div class="container mt-5" [hidden]="!pageLoaded">
   <div class="row">
     <div class="col-12 center-text" (click)="newBoard()" [hidden]="boards.length">
       No boards! Create your first

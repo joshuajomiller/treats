@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {AuthService} from '../auth/auth.service';
 
 @Component({
   selector: 'app-share-board',
@@ -11,8 +12,11 @@ export class ShareBoardComponent implements OnInit {
   @Input() sharedUsers;
   @Input() emailAddress;
   @Output() action = new EventEmitter();
+  private userEmail: string;
 
-  constructor(public activeModal: NgbActiveModal) { }
+  constructor(public activeModal: NgbActiveModal, private authService: AuthService) {
+    this.userEmail = this.authService.getUserEmail();
+  }
 
   ngOnInit() {
   }

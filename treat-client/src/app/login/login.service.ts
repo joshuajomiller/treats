@@ -12,8 +12,9 @@ export class LoginService {
   login(email: string, password: string, remember: Boolean) {
     return this.http.post<UserToken>('/api/auth/login', {email: email, password: password})
       .pipe(
-        tap(userToken => {
-            this.authService.setUserToken(userToken.token, remember);
+        tap(response => {
+            this.authService.setUserToken(response.token, remember);
+            this.authService.setUser(response.user);
           }
         )
       );
@@ -22,8 +23,9 @@ export class LoginService {
   register(email: string, password: string, remember: Boolean) {
     return this.http.post<UserToken>('/api/user', {email: email, password: password})
       .pipe(
-        tap(userToken => {
-            this.authService.setUserToken(userToken.token, remember);
+        tap(response => {
+            this.authService.setUserToken(response.token, remember);
+            this.authService.setUser(response.user);
           }
         )
       );
@@ -32,4 +34,5 @@ export class LoginService {
 
 class UserToken {
   token: string;
+  user: any;
 }
