@@ -13,7 +13,7 @@ router.route('/')
                 if (user.boards && user.boards.length) {
                     ownedBoardPromise = Board.find({_id: {"$in": user.boards}}).lean().exec();
                 }
-                let sharedBoardPromise = Board.find({ 'sharedUsers.id': user._id }).lean().exec();
+                let sharedBoardPromise = Board.find({ 'sharedUsers': user._id }).lean().exec();
 
                 Promise.all([ownedBoardPromise, sharedBoardPromise]).then(function(boards) {
                     let ownedBoards = boards[0];
@@ -139,12 +139,9 @@ router.route('/:id/share/')
                 if (board.sharedUsers.length){
                     let sharedWith = [];
                     board.sharedUsers.forEach((sharedUser, index) => {
-                        User.findById(sharedUser.id, function (err, user) {
+                        User.findById(sharedUser, function (err, user) {
                             if (user) {
-                                sharedWith.push({
-                                    email: user.email,
-                                    permission: sharedUser.permission
-                                });
+                                sharedWith.push(user.email);
                             }
                             if (index + 1 === board.sharedUsers.length){
                                 res.send(sharedWith);
@@ -162,7 +159,6 @@ router.route('/:id/share/')
     .post(function (req, res) {
         let boardId = req.params.id;
         let email = req.body.email;
-        let permission = req.body.permission;
 
         User.findOne({email: email})
             .then(user => {
@@ -171,28 +167,56 @@ router.route('/:id/share/')
                     Board.findById(boardId, function (err, board) {
                         if (board) {
                             let sharedWith = board.sharedUsers.filter(user => {
-                                console.log('checking: ' + user.id + ' against ' + userId);
-                                return user.id.equals(userId);
+                                console.log('checking: ' + user + ' against ' + userId);
+                                return user.equals(userId);
                             });
                             if (!sharedWith.length) {
-                                board.sharedUsers.push({
-                                    id: userId,
-                                    permission: permission
-                                });
+                                board.sharedUsers.push(userId);
                                 board.save(function (err) {
                                     if (err) {
                                         res.status(400).send(err);
                                     } else {
-                                        res.send({status: 'board shared with user'});
+                                        res.send({status: 'success', email: email});
                                     }
                                 });
                             } else {
                                 res.status(400).send({error: 'user already exists'});
                             }
-                        }
+                        } else {
+													res.status(400).send({error: 'board does not exist'});
+												}
                     });
                 } else {
-                    console.log('not found user');
+                    res.status(400).send({status: 'user not found'});
+                }
+            });
+    });
+router.route('/:id/share/:email')
+    .delete(function (req, res) {
+        let boardId = req.params.id;
+        let email = req.params.email;
+
+        User.findOne({email: email})
+            .then(user => {
+                if (user) {
+                    let userId = user._id;
+                    Board.findById(boardId, function (err, board) {
+                        if (board) {
+													board.sharedUsers = board.sharedUsers.filter(user => {
+														return !user.equals(userId);
+													});
+													board.save(function (err) {
+														if (err) {
+															res.status(400).send(err);
+														} else {
+															res.send({status: 'success', email: email});
+														}
+													});
+                        } else {
+													res.status(400).send({error: 'board does not exist'});
+												}
+                    });
+                } else {
                     res.status(400).send({status: 'user not found'});
                 }
             });

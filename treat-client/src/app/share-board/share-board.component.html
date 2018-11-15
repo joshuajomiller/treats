@@ -17,7 +17,7 @@
           <div class="input-group">
             <input type="email" class="form-control" name="email_address" title="Email address" placeholder="Email address" [(ngModel)]="emailAddress">
             <div class="input-group-append">
-              <button class="btn btn-primary" type="button" (click)="addUser()">Add</button>
+              <button class="btn btn-primary" type="submit" (click)="addUser()">Add</button>
             </div>
           </div>
         </form>
@@ -27,10 +27,10 @@
   <div class="container mt-3">
     <div class="row" *ngFor="let user of sharedUsers">
       <div class="col">
-        {{user.email}}
+        {{user}}
       </div>
       <div class="col text-right">
-        {{user.permission}}
+        <span class="delete-user" (click)="deleteUser(user)"><i class="fas fa-times"></i></span>
       </div>
     </div>
   </div>

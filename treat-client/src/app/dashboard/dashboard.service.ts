@@ -38,8 +38,12 @@ export class DashboardService {
     return this.http.get('/api/board/' + boardId + '/share');
   }
 
-  shareBoard(boardId, data) {
-    return this.http.post('/api/board/' + boardId + '/share', data);
+  deleteSharedBoardUser(boardId, email) {
+    return this.http.delete('/api/board/' + boardId + '/share/' + email.email);
+  }
+
+  shareBoard(boardId, email) {
+    return this.http.post('/api/board/' + boardId + '/share', {email: email.email});
   }
 
 }

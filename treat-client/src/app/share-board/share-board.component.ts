@@ -8,9 +8,8 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class ShareBoardComponent implements OnInit {
 
-  public emailAddress: string;
-
   @Input() sharedUsers;
+  @Input() emailAddress;
   @Output() action = new EventEmitter();
 
   constructor(public activeModal: NgbActiveModal) { }
@@ -19,11 +18,19 @@ export class ShareBoardComponent implements OnInit {
   }
 
   addUser() {
-    this.action.emit({email: this.emailAddress, permission: 'view'});
+    this.action.emit({action: 'add', email: this.emailAddress});
+  }
+
+  deleteUser(email) {
+    this.action.emit({action: 'delete', email: email});
   }
 
   done() {
     this.activeModal.close();
+  }
+
+  resetEmailAddress() {
+    this.emailAddress = '';
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgbModal, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 import {NewPostComponent} from '../new-post/new-post.component';
 import {DashboardService} from './dashboard.service';
@@ -12,7 +12,10 @@ import {ShareBoardComponent} from '../share-board/share-board.component';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
+
+
 export class DashboardComponent implements OnInit {
+
   public boards: Board[] = [];
   public currentBoard: string;
   public pageLoaded = false;
@@ -116,11 +119,23 @@ export class DashboardComponent implements OnInit {
         modalRef.componentInstance.name = 'ShareBoard';
         modalRef.componentInstance.sharedUsers = sharedUsers;
         modalRef.componentInstance.action.subscribe(data => {
-          this.dashboardService.shareBoard(this.boards[this.currentBoard]._id, data)
-            .subscribe(() => {
-              this.refreshPage();
-            });
+          if (data.action === 'add') {
+            this.dashboardService.shareBoard(this.boards[this.currentBoard]._id, {email: data.email})
+              .subscribe((response) => {
+                modalRef.componentInstance.sharedUsers.push(response.email);
+                modalRef.componentInstance.emailAddress = '';
+              });
+          } else if (data.action === 'delete') {
+            this.dashboardService.deleteSharedBoardUser(this.boards[this.currentBoard]._id, {email: data.email})
+              .subscribe((response) => {
+                modalRef.componentInstance.sharedUsers = modalRef.componentInstance.sharedUsers.filter(user => {
+                  return user !== response.email;
+                });
+              });
+          }
         });
       });
   };
+
+
 }
