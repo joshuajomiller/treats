@@ -21,6 +21,8 @@ import { NewBoardComponent } from './new-board/new-board.component';
 import { TextPostComponent } from './posts/text-post/text-post.component';
 import { TogglePostComponent } from './posts/toggle-post/toggle-post.component';
 import { ShareBoardComponent } from './share-board/share-board.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { ShareBoardComponent } from './share-board/share-board.component';
     NewBoardComponent,
     TextPostComponent,
     TogglePostComponent,
-    ShareBoardComponent
+    ShareBoardComponent,
+    HeaderComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

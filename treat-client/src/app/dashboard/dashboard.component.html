@@ -1,22 +1,31 @@
-<div class="container mt-5" [hidden]="!pageLoaded">
+<div class="container-fluid mt-5" [hidden]="!pageLoaded">
   <div class="row">
-    <div class="col-12 center-text" (click)="newBoard()" [hidden]="boards.length">
-      No boards! Create your first
+    <div class="col-md-2 d-none d-md-block">
+      <app-sidebar class="col"></app-sidebar>
     </div>
 
-    <div class="col-12 center-text" [hidden]="!boards.length">
-        <div class="board_wrapper" *ngFor="let board of boards; index as i" (click)="selectBoard(i)" [class.selected]="currentBoard === i">{{board.name}} <i class="fas fa-share-square" [hidden]="board.status !== 'shared'"></i></div>
+    <div class="col-md-10" [hidden]="!pageLoaded">
+      <div class="col-12 center-text" (click)="newBoard()" [hidden]="boards.length">
+        No boards! Create your first
+      </div>
+
+      <div class="col-12 center-text" [hidden]="!boards.length">
+        <div class="board_wrapper" *ngFor="let board of boards; index as i" (click)="selectBoard(i)"
+             [class.selected]="currentBoard === i">{{board.name}} <i class="fas fa-share-square"
+                                                                     [hidden]="board.status !== 'shared'"></i></div>
         <div class="board_wrapper new" (click)="newBoard()"><i class="fas fa-plus"></i></div>
         <div class="board_wrapper share" (click)="shareBoard()"><i class="fas fa-share"></i></div>
-    </div>
-  </div>
+      </div>
 
-  <div class="row mt-5">
-    <div class="col">
-      <div class="new_post_wrapper" (click)="newPost()" [hidden]="!boards.length">New Post</div>
-    </div>
-    <div class="col-12" [hidden]="!boards.length && !boards[currentBoard]?.posts" *ngFor="let post of boards[currentBoard]?.posts">
-      <app-text-post *ngIf="post.post_type=='TextPost'" [post]="post" (postEdit)="newPost($event)" (postDelete)="deletePost($event)"></app-text-post>
+      <div class="col">
+        <div class="new_post_wrapper" (click)="newPost()" [hidden]="!boards.length">New Post</div>
+      </div>
+
+      <div class="col-12" [hidden]="!boards.length && !boards[currentBoard]?.posts"
+           *ngFor="let post of boards[currentBoard]?.posts">
+        <app-text-post *ngIf="post.post_type=='TextPost'" [post]="post" (postEdit)="newPost($event)"
+                       (postDelete)="deletePost($event)"></app-text-post>
+      </div>
     </div>
   </div>
 </div>
